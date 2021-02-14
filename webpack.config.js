@@ -7,6 +7,14 @@ module.exports = {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js",
     },
+    devServer: {
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, './dist'),
+        open: true,
+        compress: true,
+        hot: true,
+        port: 8080,
+    },
     module: {
         rules: [
             {
@@ -30,7 +38,7 @@ module.exports = {
                 use: ["style-loader", "css-loader", "sass-loader"]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|ttf)$/,
                 use: ["file-loader"]
             }
         ]

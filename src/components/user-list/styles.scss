@@ -1,0 +1,31 @@
+@import '../../../variables.scss';
+
+a.user {
+    border: 1px solid $borderColor;
+    border-radius: 3px;
+    margin: .5em;
+    text-decoration: none;
+    background-color: $mainColor;
+
+    &:hover, :active, :focus {
+
+        figcaption {
+            color: lighten($textColor, 90%);
+        }
+    }
+
+    & > figure {
+        margin: .5em;
+        width: 200px;
+
+        & > figcaption {
+            margin: .1em;
+            color: $textColor;
+            text-align: center;
+        }
+
+        & > img {
+            width: 100%;
+        }
+    }
+}

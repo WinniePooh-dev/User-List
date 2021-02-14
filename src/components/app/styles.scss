@@ -1,0 +1,21 @@
+@import '../../../variables.scss';
+
+@font-face {
+    font-family: 'KuraleRegular';
+    src: url('../../static/fonts/KuraleRegular.ttf');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body, #user-list {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'KuraleRegular';
+    font-size: $defaultFontSize;
+}
