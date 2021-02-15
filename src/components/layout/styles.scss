@@ -3,6 +3,18 @@ div.layout {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    // width: 40%;
-    margin: 10% auto;
+    width: 40%;
+    margin: 5% auto;
+}
+
+@media screen and ( max-width: 1782px ) {
+    div.layout {
+        width: 50%;
+    }
+}
+
+@media screen and ( min-width: 800px ) and ( max-width: 1430 ) {
+    div.layout {
+        width: 100%;
+    }
 }

@@ -6,6 +6,11 @@ a.user {
     margin: .5em;
     text-decoration: none;
     background-color: $mainColor;
+    transition: .2s;
+
+    &:active {
+        transform: scale(.95)
+    }
 
     &:hover, :active, :focus {
 

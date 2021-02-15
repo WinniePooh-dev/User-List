@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import Api from '../../api';
+import store from '../../mobx/store';
+
 import LayOut from '../layout';
 import { UserList } from '../user-list';
 import User from '../user';
@@ -8,6 +11,13 @@ import User from '../user';
 import './styles.scss';
 
 class App extends Component {
+
+    componentDidMount = () => {
+        Api.loadUsers().then(response => {
+            store.getUsers(response.data)
+        });
+    }
+
     render() {
         return (
             <Fragment>
