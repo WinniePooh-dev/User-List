@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+
 import Api from '../../../api';
 import store from '../../../mobx/store';
 
@@ -8,7 +10,7 @@ import './styles.scss';
 
 export const UserList = observer (
     ({ history, location, match }) => {
-        // const [ users, setUsers ] = useState([]);
+        // const [ users, setUsers ] = useContext();
     
         // useEffect(() => {
         //     Api.loadUsers().then(response => {
