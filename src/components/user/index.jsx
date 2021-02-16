@@ -15,9 +15,13 @@ const User = observer (
     
         useEffect(() => {
             const { match } = props;
+            let timer;
             Api.loadUserInfo(match.params.id).then(response => {
-                setUser(response.data);
+                timer = setTimeout(() => {
+                    setUser(response.data)
+                }, 1500);
             })
+            return () => clearTimeout(timer);
         }, []);
     
         const handleChange = (event, key) => {

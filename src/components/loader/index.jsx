@@ -3,16 +3,14 @@ import React from 'react';
 import './styles.scss';
 
 export const Loader = () => {
-    return [...Array(1)].map((_, key) => {
-        return spinner(key);
-    });
+    return spinner(0,3);
 }
 
-const spinner = key => {
-    if (key < 3) {
+const spinner = (key, N) => {
+    if (key < N) {
         return (
             <div key={key} className={`${key ? '' : 'spinner'}`}>
-                {spinner(key + 1)}
+                {spinner(key + 1, N)}
             </div>
         )
     }
