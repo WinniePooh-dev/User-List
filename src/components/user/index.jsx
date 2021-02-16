@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import store from '../../mobx/store';
 import { withRouter } from 'react-router-dom';
+import { toJS } from 'mobx';
 
 import Api from '../../api';
 
@@ -19,25 +20,27 @@ const User = observer (
         }, []);
     
         const handleChange = (event, key) => {
-            store.updateUser({[key]: event.target.value}, user.id)
+            store.updateUser({[key]: event.target.value}, user.id);
+            setUser(store.users.find(({ id }) => user.id === id));
         }
+
+        let renderUserInfo = 
+                <form>
+                    <img src={user.avatar} alt={'None'}/>
+                    {Object.keys(user).map((value, key) => {
+                        if (value !== 'id' && value !== 'avatar') {
+                            let label = value.split('_').join(' ');
+                            return (
+                                <span key={key}>
+                                    <label>{label}</label>
+                                    <input value={user[value]} type={'text'} onChange={e => handleChange(e, value)}/>
+                                </span>
+                            )
+                        }
+                    })}
+                </form>
         
-        return (
-            <form>
-                <img src={user.avatar} alt={'None'}/>
-                {Object.keys(user).map((value, key) => {
-                    if (value !== 'id' && value !== 'avatar') {
-                        let label = value.split('_').join(' ');
-                        return (
-                            <span key={key}>
-                                <label>{label}</label>
-                                <input value={user[value]} type={'text'} onChange={e => handleChange(e, value)}/>
-                            </span>
-                        )
-                    }
-                })}
-            </form>
-        )
+        return user && Object.keys(user).length ? renderUserInfo : <Fragment/>;
     }
 )
 
