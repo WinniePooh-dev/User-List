@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { toJS } from 'mobx';
 
 import Api from '../../api';
+import { Loader } from '../loader';
 
 import './styles.scss';
 
@@ -40,7 +41,7 @@ const User = observer (
                     })}
                 </form>
         
-        return user && Object.keys(user).length ? renderUserInfo : <Fragment/>;
+        return user && Object.keys(user).length ? renderUserInfo : <Loader/>;
     }
 )
 
