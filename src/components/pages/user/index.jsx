@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import store from '../../mobx/store';
+import store from '../../../mobx/store';
 import { withRouter } from 'react-router-dom';
 import { toJS } from 'mobx';
 
-import Api from '../../api';
-import { Loader } from '../loader';
+import Api from '../../../api';
+import { Loader } from '../../loader';
 
 import './styles.scss';
 

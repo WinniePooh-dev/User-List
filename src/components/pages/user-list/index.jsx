@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Api from '../../api';
-import store from '../../mobx/store';
+import Api from '../../../api';
+import store from '../../../mobx/store';
 
 import './styles.scss';
 

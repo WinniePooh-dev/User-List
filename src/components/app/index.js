@@ -5,8 +5,7 @@ import Api from '../../api';
 import store from '../../mobx/store';
 
 import LayOut from '../layout';
-import { UserList } from '../user-list';
-import User from '../user';
+import { UserList, User } from '../pages';
 
 import './styles.scss';
 
