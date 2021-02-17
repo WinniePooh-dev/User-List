@@ -2,14 +2,14 @@ import { observer } from 'mobx-react-lite';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-
-import Api from '../../../api';
 import store from '../../../mobx/store';
+import { Context } from '../../../context';
 
 import './styles.scss';
 
 export const UserList = observer (
-    ({ location, getCurrentState }) => {
+    ({ location }) => {
+        const { getCurrentState } = useContext(Context);
 
         useEffect(() => {
             getCurrentState(+location.search.match(/\d+/g));

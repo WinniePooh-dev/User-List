@@ -47,7 +47,7 @@ class App extends Component {
         const { page, per_page, total, total_pages } = this.state;
         return (
             <Fragment>
-                <Context.Provider value={{ page, per_page, total, total_pages, onSwitchPage: this.handleSwitchPage }}>
+                <Context.Provider value={{ page, per_page, total, total_pages, onSwitchPage: this.handleSwitchPage, getCurrentState: this.getCurrentState }}>
                     <Router>
                         <Switch>
                             <Route exact path="/">
@@ -57,7 +57,7 @@ class App extends Component {
                                 return (
                                     <Fragment>
                                         <LayOut>
-                                            <UserList {...props} getCurrentState={this.getCurrentState}/>
+                                            <UserList {...props}/>
                                         </LayOut>
                                         <Pagination {...props}/>
                                     </Fragment>
