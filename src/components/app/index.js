@@ -19,9 +19,8 @@ class App extends Component {
         total_pages: 0
     }
 
-    componentDidMount = () => {
-        Api.loadUsers().then(response => {
-            console.log(response)
+    getCurrentState = (page) => {
+        Api.loadUsers(page).then(response => {
             const { page, per_page, total, total_pages } = response;
             this.setState({
                 page,
@@ -30,7 +29,8 @@ class App extends Component {
                 total_pages
             })
             return response;
-        }).then(response => {
+        })
+        .then(response => {
             store.getUsers(response.data)
         });
     }
@@ -39,7 +39,6 @@ class App extends Component {
         event.preventDefault();
         this.setState({ page });
         Api.loadUsers(page).then(response => {
-            console.log(response);
             store.getUsers(response.data);
         });
     }
@@ -58,9 +57,9 @@ class App extends Component {
                                 return (
                                     <Fragment>
                                         <LayOut>
-                                            <UserList {...props}/>
+                                            <UserList {...props} getCurrentState={this.getCurrentState}/>
                                         </LayOut>
-                                        <Pagination/>
+                                        <Pagination {...props}/>
                                     </Fragment>
                                 )
                             }}/>

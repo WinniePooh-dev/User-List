@@ -9,14 +9,11 @@ import store from '../../../mobx/store';
 import './styles.scss';
 
 export const UserList = observer (
-    ({ history, location, match }) => {
-        // const [ users, setUsers ] = useContext();
-    
-        // useEffect(() => {
-        //     Api.loadUsers().then(response => {
-        //         store.getUsers(response.data)
-        //     });
-        // }, [])
+    ({ location, getCurrentState }) => {
+
+        useEffect(() => {
+            getCurrentState(+location.search.match(/\d+/g));
+        }, [])
     
         return (
             <Fragment>

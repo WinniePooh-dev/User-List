@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Context } from '../../context';
 
 import './styles.scss';
 
-export const Pagination = () => {
+export const Pagination = ({ match }) => {
+
+    const history = useHistory();
+
     return (
         <Context.Consumer>
             {({ page, total_pages, onSwitchPage }) => (
@@ -16,8 +19,8 @@ export const Pagination = () => {
                                 current_page = ++current_page;
                                 return (
                                     <li key={current_page} className={`page ${current_page === page ? 'active' : ''}`}>
-                                        <Link to={`/user-list?page=${current_page}`}
-                                              onClick={e => onSwitchPage(e, current_page)}>
+                                        <Link to={`#`}
+                                              onClick={e => { onSwitchPage(e, current_page); history.push(`${match.url}?page=${current_page}`); }}>
                                             {current_page}
                                         </Link>
                                     </li>
