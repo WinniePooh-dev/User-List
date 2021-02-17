@@ -16,7 +16,14 @@ class App extends Component {
         page: 1,
         per_page: 0,
         total: 0,
-        total_pages: 0
+        total_pages: 0,
+        show_modal: false
+    }
+
+    setShowModal = show => {
+        this.setState({
+            show_modal: show
+        })
     }
 
     getCurrentState = (page) => {
@@ -44,10 +51,14 @@ class App extends Component {
     }
 
     render() {
-        const { page, per_page, total, total_pages } = this.state;
+        const { page, per_page, total, total_pages, show_modal } = this.state;
         return (
             <Fragment>
-                <Context.Provider value={{ page, per_page, total, total_pages, onSwitchPage: this.handleSwitchPage, getCurrentState: this.getCurrentState }}>
+                <Context.Provider value={{ page, per_page, total, total_pages,
+                                           active: show_modal,
+                                           onSwitchPage: this.handleSwitchPage,
+                                           getCurrentState: this.getCurrentState,
+                                           setActive: this.setShowModal }}>
                     <Router>
                         <Switch>
                             <Route exact path="/">
