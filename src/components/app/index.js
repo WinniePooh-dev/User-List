@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import Api from '../../api';
-import { Context } from '../../context';
-import store from '../../mobx/store';
+import Api from "@/api";
+import { Context } from '@/context';
+import store from '@/mobx/store';
 
 import LayOut from '../layout';
 import { UserList, User } from '../pages';
@@ -17,13 +17,14 @@ class App extends Component {
         per_page: 0,
         total: 0,
         total_pages: 0,
-        show_modal: false
+        show_modal: false,
+        loading: false
     }
 
     setShowModal = show => {
         this.setState({
-            show_modal: show
-        })
+            show_modal: show,
+        });
     }
 
     getCurrentState = (page) => {
@@ -50,21 +51,32 @@ class App extends Component {
         });
     }
 
+    handleSetLoading = loading => {
+        this.setState({ loading });
+    }
+
+    handleChangeHistory = (history, url, page, func) => {
+        history.push(`${url.replace(/[0-9]/g, '').slice(0,-1)}?page=${page}`);
+        func({});
+    }
+
     render() {
-        const { page, per_page, total, total_pages, show_modal } = this.state;
+        const { page, per_page, total, total_pages, show_modal, loading } = this.state;
         return (
             <Fragment>
                 <Context.Provider value={{ page, per_page, total, total_pages,
-                                           active: show_modal,
+                                           loading, active: show_modal,
                                            onSwitchPage: this.handleSwitchPage,
                                            getCurrentState: this.getCurrentState,
+                                           setLoading: this.handleSetLoading,
+                                           onFinally: this.handleChangeHistory,
                                            setActive: this.setShowModal }}>
                     <Router>
                         <Switch>
                             <Route exact path="/">
                                 <Redirect to='/user-list'/>
                             </Route>
-                            <Route exact path="/user-list" render={(props) => {
+                            <Route path="/user-list/:id?" render={(props) => {
                                 return (
                                     <Fragment>
                                         <LayOut>
@@ -74,7 +86,7 @@ class App extends Component {
                                     </Fragment>
                                 )
                             }}/>
-                            <Route path="/user-list/:id" component={User}/>
+                            {/* <Route path="/user-list/:id" component={User}/> */}
                         </Switch>
                     </Router>
                 </Context.Provider>

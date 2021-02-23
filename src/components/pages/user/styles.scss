@@ -1,0 +1,66 @@
+@import '../../../../variables.scss';
+
+form.user-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    input, button {
+        padding: 15px 10px;
+        border-radius: 5px;
+        font-size: $defaultFontSize;
+    }
+
+    button {
+        width: 25%;
+        background-color: lighten($mainColor, 5%);
+        color: lighten($mainColor, 80%);
+        border: 1px solid lighten($mainColor, 80%) !important;
+
+        &:active, &:hover {
+            cursor: pointer;
+        }
+        
+        &:active {
+            background-color: $mainColor;
+        }
+    }
+
+    & > div {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        margin-top: 1.5em;
+    }
+
+    img {
+        width: 12em;
+        border-radius: 50%;
+        border: 1px solid $borderColor;
+    }
+
+    & span {
+        width: 100%;
+        margin: 1em auto;
+
+        label, input {
+            width: 70%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            font-size: $defaultFontSize*1.5;
+            margin-bottom: .3em;
+    
+            & + input {
+                border: 1px solid lighten($mainColor, 80%) !important;
+
+                &:active, &:focus {
+                    border: 1px solid lighten($mainColor, 5%) !important;
+                }
+            }
+        }
+    }
+}

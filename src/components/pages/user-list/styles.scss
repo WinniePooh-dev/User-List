@@ -8,6 +8,10 @@ a.user {
     background-color: $mainColor;
     transition: .2s;
 
+    &.hidden {
+        visibility: hidden;
+    }
+
     &:active {
         transform: scale(.95)
     }

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { Context } from '../../context';
+import { Context } from '@/context';
 
 import './styles.scss';
 

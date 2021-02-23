@@ -12,21 +12,26 @@ import { Context } from '../../../context';
 import './styles.scss';
 
 const User = observer (
-    (props) => {
+    ({ match, history }) => {
         const [user, setUser] = useState({});
         const [action, setAction] = useState();
-        const { setActive } = useContext(Context);
+        const { setActive, page, onFinally } = useContext(Context);
     
         useEffect(() => {
-            const { match } = props;
+            const id = match.params.id;
             let timer;
-            Api.loadUserInfo(match.params.id).then(response => {
+            
+            if (Object.keys(user).length) {
+                setActive(true);
+            } else setActive(false);
+
+            Api.loadUserInfo(id).then(response => {
                 timer = setTimeout(() => {
-                    setUser(response.data)
+                    setUser(response.data);
                 }, 1500);
-            })
+            });
             return () => clearTimeout(timer);
-        }, []);
+        }, [user.id, match.params.id]);
     
         const handleChange = (event, key) => {
             store.updateUser({[key]: event.target.value}, user.id);
@@ -35,23 +40,30 @@ const User = observer (
 
         const handleSubmit = event => {
             event.preventDefault();
-            switch (action.toUpperCase()) {
-                case 'SAVE':
-                    console.log(action);
-                    break;
-                case 'DELETE':
-                    console.log(action);
-                    break;
-            
-                default:
-                    break;
+            try {
+                switch (action.toUpperCase()) {
+                    case 'SAVE':
+                        console.log(toJS(store.users));
+                        break;
+                    case 'DELETE':
+                        console.log(action);
+                        break;
+                
+                    default:
+                        break;
+                }
+            } catch (error) {
+                throw error;
+            } finally {
+                onFinally(history, match.url, page, setUser);
             }
+
             setActive(false);
         }
 
         let renderUserInfo = 
-                <Modal>
-                    <form onSubmit={handleSubmit}>
+                <Modal setUser={setUser}>
+                    <form onSubmit={handleSubmit} className={'user-info'}>
                         <img src={user.avatar} alt={'None'}/>
                         {Object.keys(user).map((value, key) => {
                             if (value !== 'id' && value !== 'avatar') {
@@ -66,7 +78,7 @@ const User = observer (
                         })}
                         <div>
                             {Array.from({length: 2}, (_, idx) => {
-                                let label = idx ? 'Save' : 'Delete'
+                                let label = idx ? 'Save' : 'Delete';
                                 return (
                                     <button onClick={() => setAction(label)} key={idx}>{label}</button>
                                 )
@@ -75,7 +87,7 @@ const User = observer (
                     </form>
                 </Modal>
         
-        return user && Object.keys(user).length ? renderUserInfo : <Loader/>;
+        return user.id == match.params.id ? renderUserInfo : <Loader/>;
     }
 )
 

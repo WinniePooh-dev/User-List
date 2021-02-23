@@ -1,9 +1,10 @@
 @import '../../../variables.scss';
 
 div.spinner {
+    position: absolute;
     display: flex;
     justify-content: center;
-    margin-top: 15%;
+    margin-top: 10%;
     
 
     div {
